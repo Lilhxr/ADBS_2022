@@ -1,4 +1,5 @@
-# ADBS_2022
+# **ADBS_2022**👔🧥🥼
+
 ### Some Data Structures
 
 #### 1. `Tuple`
@@ -16,11 +17,7 @@
 - `concate(Tuple<T>, tuple)`: Glue this tuple with another tuple, return a new tuple that glued together.
 - `compareValues(Tuple tuple)`: compare values in two tuples. If all values are the same, return true, otherwise return false.
 
-#### 2. `TableInfo`
-
-**Description:** `TableInfo` is designed for  storing the database table information. Contains table name (`tableName`), disk path of the table (`tablePath`), columns of the table (`columns`) and the flag that whether a table is a temporary table (`inMemory`). When `inMemory` is set true, it means that the table is not really in the disk, but comes from join operation or projection operation.
-
-#### 3. `Catalog`
+#### 2. `Catalog`
 
 **Description:** `Catalog` stores the information of the database and its tables. `Catalog` is designed as a singleton pattern, which shares globally. The following attributions are contained in `Catalog`: 
 
@@ -61,12 +58,6 @@ void buildExpMap():
        tableName = tableName + " " + tableOrder[i] // create potential joint table
        expMap.put(tableName, emptyList)
 ```
-
-Method `putExp(ComparisonOperator operator)` is to put the expression into the corresponded Expression List in `expMap`. The `operator` has left part and right part. If the left part and right part are both involves tables, then it is a join condition. Concatenate two table name as a join table name, traverse the `expMap` 's key set from begin to end (key set is in order), if find a key that contains the join table name (such as `"T1 T2 T3"` contains `"T2 T3"`), break the loop and add the expression into the corresponded list in `expMap`. Since `expMap` is a ordered `LinkedHashMap`, the situation that the expression for `T1 T2` is wrongly added into the list which corresponds to `"T1 T2 T3"` will not happen. If only one of left part and right part involves table, this is a single table filter condition, directly put the expression into the corresponding list. If the expression is numeric expression such as `1=2`, put it into the numeric list.
-
-All `visit`  methods that involve subclasses of `ComparisonOperator` are overridden.  when these methods are called, `putExp` will be called too, and put the expression to the proper list in `expMap`.
-
-The `getExpression` method will use this visitor to traverse `Expression` `exp`. After traverse the `exp`, subexpression will be put into the `expMap`. `getExpression` will integrate the expressions that correspond to one same table together, and put them into a `HashMap<String, Expression>` `hashMap` to return.
 
 #### 2. Join Operation
 
