@@ -32,9 +32,6 @@ Map<String, TableInfo> tables: a hashMap that contains all table information in 
 
 - `getIndex(String tableName, String columnName)`: Given `tableName` and `columnName`, find out the column index in the tuple and return.
 
-- `getTable(String tableName)`: Given a `tableName`, find out the `tableInfo` instance and return.
-- `dropInMemoryTable()`: Clear the temporary table info, this should be done after a SQL has executed. 
-
 - `getInstance(String dbPath)`: Get the singleton instance of `Catalog`.
 
 ***
